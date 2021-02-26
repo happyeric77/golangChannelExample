@@ -20,9 +20,11 @@ func unbufferedChanDemo() {
 	wait.Add(1)
 	go func(){
 		defer wait.Done()
-		for i := 0; i < 5; i ++ {
+		counter := 1
+		for {
 			time.Sleep(time.Second)
-			fmt.Println(i)
+			fmt.Println(counter)
+			counter ++
 		}
 	}()
 
@@ -35,11 +37,6 @@ func unbufferedChanDemo() {
 		f <- "Hello message"
 		time.Sleep(5*time.Millisecond)
 		fmt.Println("message emmited to channel")		
-	}()
-
-	wait.Add(1)
-	go func() {
-		defer wait.Done()
 	}()
 	
 	// the wait group needs to be a go routine becuase it is not possible to wait any time after the message is emmited to the channel
@@ -100,4 +97,6 @@ func main() {
 
 	// log.Println("===========buffered channel demo===========")
 	// bufferedChanDemo()
+	
+	
 }
